@@ -7,7 +7,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import "primeflex/primeflex.css";
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
-import 'primereact/resources/themes/luna-amber/theme.css';
+import 'primereact/resources/themes/luna-pink/theme.css';
 import "./app.css";
 
 

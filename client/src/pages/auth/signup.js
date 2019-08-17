@@ -156,7 +156,7 @@ class Signup extends React.Component {
                       type="file"
                       name="image"
                       id="file"
-                      class="inputfile"
+                      className="inputfile"
                       onChange={this.onUpload}
                     />
                   </div>

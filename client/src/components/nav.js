@@ -1,14 +1,51 @@
-import React, {Component} from 'react';
-import {Menubar} from 'primereact/menubar';
-import {Button} from 'primereact/button';
+import React from "react";
+import { Dropdown } from "primereact/dropdown";
+import logo from "../assets/rateitlogo.png";
+import { Navbar, Nav } from "react-bootstrap";
 
-export default class nav extends Component {
-        render() {
-          return(
-            <Menubar>
-                {this.props.user ?  <Button label="Logout" icon="pi pi-power-off" onClick={this.props.logout} 
-                style={{marginLeft:4}}/> : ''}
-            </Menubar>
-         )
- }
+export default class nav extends React.Component {
+  professionItems = [
+    { label: "Musician", value: "Musician" },
+    { label: "Lecturer", value: "Lecturer" },
+    { label: "Yoga teacher", value: "Yoga teacher" },
+    { label: "Chef", value: "Chef" },
+    { label: "Standup comedian", value: "Standup comedian" }
+  ];
+  render() {
+    return (
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        bg="dark"
+        variant="dark"
+        className="top"
+      >
+        <Navbar.Brand href="#home">
+          <img className="logo" src={logo} />
+        </Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse
+          id="responsive-navbar-nav"
+          className="justify-content-end"
+        >
+          <Nav>
+            {this.props.user ? (
+              <Nav.Link href="#logout" className="text-danger">
+                Logout
+              </Nav.Link>
+            ) : (
+              ""
+            )}
+
+            <Dropdown
+              required
+              name="profession"
+              options={this.professionItems}
+              placeholder="Explore professionals"
+            />
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
+    );
+  }
 }

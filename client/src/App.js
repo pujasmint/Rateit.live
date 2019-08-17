@@ -3,8 +3,11 @@ import { Route, Switch } from "react-router-dom";
 import Login from "./pages/auth/login";
 import Signup from "./pages/auth/signup";
 import Nav from "./components/nav";
+import Footer from "./components/footer";
 import AuthService from "./api/authservice";
-import { withRouter } from "react-router-dom";
+import Home from "./pages/home";
+import Profile from "./pages/profile";
+import Session from "./pages/session";
 
 class App extends React.Component {
   constructor(props) {
@@ -28,10 +31,7 @@ class App extends React.Component {
     this.setState({
       user
     });
-    this.props.history.push("/");
   };
-
-
 
   logout = () => {
     this.service
@@ -46,7 +46,7 @@ class App extends React.Component {
     this.fetchUser();
     return (
       <>
-        <Nav logout={this.logout} user={this.state.user}/>
+        <Nav logout={this.logout} user={this.state.user} />
         <Switch>
           <Route
             path="/login"
@@ -68,10 +68,24 @@ class App extends React.Component {
               />
             )}
           />
+          <Route
+            path="/profile/:userId"
+            render={props => (
+              <Profile {...props} loggedInUser={this.state.user} />
+            )}
+          />
+          <Route
+            path="/session/:sessionId"
+            render={props => (
+              <Session {...props} loggedInUser={this.state.user} />
+            )}
+          />
+          <Route path="/" component={Home} />
         </Switch>
+        <Footer />
       </>
     );
   }
 }
 
-export default withRouter(App);
+export default App;

@@ -1,6 +1,5 @@
 require("dotenv").config();
 
-const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const express = require("express");
 const mongoose = require("mongoose");
@@ -8,10 +7,6 @@ const logger = require("morgan");
 const cors = require("cors");
 const fileUpload = require ("express-fileupload");
 
-
-// WHEN INTRODUCING USERS DO THIS:
-// INSTALL THESE DEPENDENCIES: passport-local, passport, bcryptjs, express-session
-// AND UN-COMMENT OUT FOLLOWING LINES:
 
 const session = require("express-session");
 const passport = require("passport");
@@ -63,7 +58,7 @@ app.locals.title = "Express - Generated with IronGenerator";
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3001"]
+    origin: true
   })
 );
 
@@ -77,5 +72,7 @@ const index = require("./routes/index");
 app.use("/", index);
 const authRoutes = require("./routes/auth-routes");
 app.use("/auth", authRoutes);
+const sessionRoutes = require("./routes/session-routes");
+app.use("/session", sessionRoutes);
 
 module.exports = app;
