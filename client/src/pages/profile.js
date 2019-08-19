@@ -4,6 +4,9 @@ import { Messages } from "primereact/messages";
 import SessionService from "../api/sessionService";
 import { withRouter } from "react-router-dom";
 import { Button } from "primereact/button";
+import Presenter from "../components/presenter";
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 
 class profile extends Component {
   constructor(props) {
@@ -27,7 +30,6 @@ class profile extends Component {
       this.sessionService
         .create(this.state)
         .then(res => {
-          debugger;
           this.props.history.push(`/session/${res._id}`);
         })
         .catch(err => {
@@ -41,25 +43,37 @@ class profile extends Component {
       ? this.props.loggedInUser._id
       : null;
     return (
-      <div className="p-grid p-justify-center p-align-center authpage">
-        {userId === loggedInUserId ? (
-          <div className="p-col-10 p-md-6">
-            <Messages
-              className="p-col-10 p-md-6"
-              ref={el => (this.messages = el)}
-              life="5000"
-            />
-            <div className="p-inputgroup">
-              <Button label="Create" onClick={this.createSession} />
-              <InputText
-                placeholder="Enter session name"
-                onChange={this.updateSessionName}
-              />
+      <div className="p-grid p-justify-center authpage pages presenter">
+        <div className="p-col-10">
+          {userId === loggedInUserId ? (
+            <div className="p-col-12">
+              <Messages ref={el => (this.messages = el)} life="5000" />
+              <div className="p-inputgroup">
+                <Button label="Create" onClick={this.createSession} />
+                <InputText
+                  placeholder="Enter session name"
+                  onChange={this.updateSessionName}
+                />
+              </div>
             </div>
-          </div>
-        ) : (
-          ""
-        )}
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="p-col-10 p-md-5">
+          {this.props.loggedInUser ? (
+            <Presenter user={this.props.loggedInUser} />
+          ) : (
+            ""
+          )}
+        </div>
+        <div className="p-col-10 p-md-5">
+          <DataTable value={this.state.cards}>
+            <Column field="name" header="Name" />
+            <Column field="audience" header="Audience" />
+            <Column field="rating" header="Rating" />
+          </DataTable>
+        </div>
       </div>
     );
   }

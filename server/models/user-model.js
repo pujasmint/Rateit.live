@@ -3,12 +3,14 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema(
   {
-    username: { type: String },
-    password: { type: String },
-    email: { type: String },
-    address: { type: String },
-    contact: { type: Number },
-    zip_code: { type: String },
+    username: String,
+    password: String,
+    email: String,
+    contact: String,
+    fullname: String,
+    profession: String,
+    rating: Number,
+    totalSessions: Number,
     image: { data: Buffer, contentType: String }
   },
   {
@@ -16,6 +18,5 @@ const userSchema = new Schema(
   }
 );
 
-const User = mongoose.model("users", userSchema);
-
+const User = mongoose.model("User", userSchema);
 module.exports = User;

@@ -2,10 +2,10 @@
 
 import axios from "axios";
 
-export default class SessionService {
+export default class RatingService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:3000/session",
+      baseURL: "http://localhost:3000/rating",
       withCredentials: true
     });
     this.service = service;
@@ -16,9 +16,9 @@ export default class SessionService {
     throw err;
   };
 
-  create(body) {
+  user(body) {
     return this.service
-      .post("/create", body)
+      .post("/user", body)
       .then(res => res.data)
       .catch(this.errorHandler);
   }
@@ -26,13 +26,6 @@ export default class SessionService {
   update(body) {
     return this.service
       .post("/update", body)
-      .then(res => res.data)
-      .catch(this.errorHandler);
-  }
-
-  finish(body) {
-    return this.service
-      .post("/finish", body)
       .then(res => res.data)
       .catch(this.errorHandler);
   }

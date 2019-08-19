@@ -57,13 +57,13 @@ class Signup extends React.Component {
   };
   render() {
     return this.props.user ? (
-      <Redirect to="/" />
+      <Redirect to={`/profile/${this.props.user._id}`} />
     ) : (
       <div className="p-grid p-justify-center p-align-center authpage">
         <div className="p-col-10 p-md-6">
           <Panel header="Signup">
             <Messages
-              className="p-col-12"
+              className="p-col-10"
               ref={el => (this.messages = el)}
               life="5000"
             />
@@ -156,7 +156,7 @@ class Signup extends React.Component {
                       type="file"
                       name="image"
                       id="file"
-                      className="inputfile"
+                      class="inputfile"
                       onChange={this.onUpload}
                     />
                   </div>

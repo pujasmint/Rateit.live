@@ -9,7 +9,8 @@ export default class nav extends React.Component {
     { label: "Lecturer", value: "Lecturer" },
     { label: "Yoga teacher", value: "Yoga teacher" },
     { label: "Chef", value: "Chef" },
-    { label: "Standup comedian", value: "Standup comedian" }
+    { label: "Standup comedian", value: "Standup comedian" },
+    { label: "Others", value: "Others" }
   ];
   render() {
     return (
@@ -21,7 +22,7 @@ export default class nav extends React.Component {
         className="top"
       >
         <Navbar.Brand href="#home">
-          <img className="logo" src={logo} />
+          <img className="logo" src={logo} alt="pic" />
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse

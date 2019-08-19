@@ -33,6 +33,7 @@
 
 .p-card {
   border-radius: 8px;
+  max-width: 400px;
 }
 
 .p-card-body {
@@ -90,3 +91,17 @@
   left: 0;
   z-index: 100;
 }
+
+.pages {
+  padding-top: 64px;
+  padding-bottom: 64px;
+}
+
+.presenter .p-inputtext {
+  width: 100%;
+}
+
+.presenter-card .p-card-header img {
+  border-radius: 50%;
+}
+

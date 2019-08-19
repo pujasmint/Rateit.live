@@ -39,15 +39,20 @@ authRoutes.post("/signup", (req, res, next) => {
     const salt = bcrypt.genSaltSync(10);
     const hashPass = bcrypt.hashSync(password, salt);
     const userImage = req.files.image;
+
     const aNewUser = new User({
       username: username,
       password: hashPass,
       email: req.body.email,
-      fullName: req.body.fullName,
-      address: req.body.address,
+      fullname: req.body.fullname,
+      profession: req.body.profession,
       contact: req.body.contact,
-      image: { data: fs.readFileSync(userImage.tempFilePath), 
-      contentType: userImage.mimetype }
+      rating: 0,
+      totalSessions: 0,
+      image: {
+        data: fs.readFileSync(userImage.tempFilePath),
+        contentType: userImage.mimetype
+      }
     });
 
     aNewUser.save(err => {

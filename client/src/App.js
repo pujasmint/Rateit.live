@@ -8,6 +8,7 @@ import AuthService from "./api/authservice";
 import Home from "./pages/home";
 import Profile from "./pages/profile";
 import Session from "./pages/session";
+import Rating from "./pages/rating";
 
 class App extends React.Component {
   constructor(props) {
@@ -80,7 +81,11 @@ class App extends React.Component {
               <Session {...props} loggedInUser={this.state.user} />
             )}
           />
-          <Route path="/" component={Home} />
+          <Route path="/rating/:invitekey" component={Rating} />} />
+          <Route
+            path="/"
+            render={props => <Home {...props} loggedInUser={this.state.user} />}
+          />
         </Switch>
         <Footer />
       </>
