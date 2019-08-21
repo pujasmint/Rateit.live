@@ -2,33 +2,53 @@ import React, { Component } from "react";
 import { InputText } from "primereact/inputtext";
 import { Messages } from "primereact/messages";
 import SessionService from "../api/sessionService";
-import { withRouter } from "react-router-dom";
+import UserService from "../api/userService";
+import { withRouter, Link } from "react-router-dom";
 import { Button } from "primereact/button";
 import Presenter from "../components/presenter";
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
+import Table from "react-bootstrap/Table";
+
+import { ProgressSpinner } from "primereact/progressspinner";
 
 class profile extends Component {
   constructor(props) {
     super(props);
     this.sessionService = new SessionService();
+    this.userService = new UserService();
     this.state = {
-      name: null
+      sessionName: null,
+      user: null,
+      sessions: null
     };
   }
+
+  componentDidMount() {
+    this.userService
+      .details({ userId: this.props.match.params.userId })
+      .then(res => {
+        this.setState({
+          user: res.user,
+          sessions: res.sessions
+        });
+      })
+      .catch(err => {
+        console.log("Error while creating session ", err);
+      });
+  }
+
   updateSessionName = e => {
-    this.setState({ name: e.target.value });
+    this.setState({ sessionName: e.target.value });
   };
 
   createSession = () => {
-    if (!this.state.name) {
+    if (!this.state.sessionName) {
       this.messages.show({
         severity: "error",
         summary: "Enter valid session name"
       });
     } else {
       this.sessionService
-        .create(this.state)
+        .create({ name: this.state.sessionName })
         .then(res => {
           this.props.history.push(`/session/${res._id}`);
         })
@@ -43,37 +63,54 @@ class profile extends Component {
       ? this.props.loggedInUser._id
       : null;
     return (
-      <div className="p-grid p-justify-center authpage pages presenter">
-        <div className="p-col-10">
-          {userId === loggedInUserId ? (
-            <div className="p-col-12">
-              <Messages ref={el => (this.messages = el)} life="5000" />
-              <div className="p-inputgroup">
-                <Button label="Create" onClick={this.createSession} />
-                <InputText
-                  placeholder="Enter session name"
-                  onChange={this.updateSessionName}
-                />
-              </div>
+      <div className="p-grid p-dir-col p-justify-center p-align-center pages presenter">
+        {this.state.user ? (
+          <>
+            <Presenter className="p-col-10 p-md-10" user={this.state.user} />
+            <div className="p-col-10 p-md-4">
+              {userId === loggedInUserId ? (
+                <>
+                  <h5 className="display-5">Create New Session</h5>
+                  <Messages ref={el => (this.messages = el)} life="5000" />
+                  <div className="p-inputgroup">
+                    <Button label="Create" onClick={this.createSession} />
+                    <InputText
+                      placeholder="Enter session name"
+                      onChange={this.updateSessionName}
+                    />
+                  </div>
+                </>
+              ) : (
+                ""
+              )}
             </div>
-          ) : (
-            ""
-          )}
-        </div>
-        <div className="p-col-10 p-md-5">
-          {this.props.loggedInUser ? (
-            <Presenter user={this.props.loggedInUser} />
-          ) : (
-            ""
-          )}
-        </div>
-        <div className="p-col-10 p-md-5">
-          <DataTable value={this.state.cards}>
-            <Column field="name" header="Name" />
-            <Column field="audience" header="Audience" />
-            <Column field="rating" header="Rating" />
-          </DataTable>
-        </div>
+            <div className="p-col-10 p-md-10 mt-2">
+              <h5 className="display-5">Or view previous sessions</h5>
+              <Table striped bordered hover size="sm" responsive>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Audience</th>
+                    <th>Rating</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.sessions.map((session, index) => (
+                    <tr key={index}>
+                      <td>
+                        <Link to={`/${session.link}`}>{session.name}</Link>
+                      </td>
+                      <td>{session.totalAudience}</td>
+                      <td>{session.rating}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+            </div>
+          </>
+        ) : (
+          <ProgressSpinner />
+        )}
       </div>
     );
   }

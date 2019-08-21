@@ -9,6 +9,7 @@ import Home from "./pages/home";
 import Profile from "./pages/profile";
 import Session from "./pages/session";
 import Rating from "./pages/rating";
+import Explore from "./pages/explore";
 
 class App extends React.Component {
   constructor(props) {
@@ -82,6 +83,7 @@ class App extends React.Component {
             )}
           />
           <Route path="/rating/:invitekey" component={Rating} />} />
+          <Route path="/explore/:profession" component={Explore} />} />
           <Route
             path="/"
             render={props => <Home {...props} loggedInUser={this.state.user} />}

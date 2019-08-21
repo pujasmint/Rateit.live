@@ -7,6 +7,8 @@ import { Panel } from "primereact/panel";
 import { Chart } from "primereact/chart";
 import SessionRatingService from "../api/sessionRatingService";
 import SessionService from "../api/sessionService";
+import { Messages } from "primereact/messages";
+import { Link } from "react-router-dom";
 
 export default class session extends Component {
   constructor(props) {
@@ -22,6 +24,12 @@ export default class session extends Component {
       totalAudience: null
     };
   }
+
+  chartOptions = {
+    animation: {
+      duration: 0
+    }
+  };
 
   getEmojiOnRating(ratings) {
     switch (parseInt(ratings)) {
@@ -55,12 +63,20 @@ export default class session extends Component {
   }
 
   stopSession = () => {
-    this.sessionService.finish({
-      id: this.state.session._id,
-      status: "FINISHED",
-      rating: this.state.lastRating,
-      totalAudience: this.state.totalAudience
-    });
+    this.sessionService
+      .finish({
+        id: this.state.session._id,
+        status: "FINISHED",
+        rating: this.state.lastRating,
+        totalAudience: this.state.totalAudience
+      })
+      .then(res => {
+        this.messages.show({
+          severity: "info",
+          summary: "Session successfully ended"
+        });
+        this.pollSessionData();
+      });
   };
 
   startSession = () => {
@@ -70,6 +86,10 @@ export default class session extends Component {
         status: "PROGRESS"
       })
       .then(res => {
+        this.messages.show({
+          severity: "success",
+          summary: "Session successfully started"
+        });
         this.pollSessionData();
       });
   };
@@ -148,6 +168,7 @@ export default class session extends Component {
   render() {
     return (
       <div className="p-grid p-justify-center pages">
+        <Messages className="p-col-10" ref={el => (this.messages = el)} />
         {this.state.session ? (
           <>
             <Dialog
@@ -179,13 +200,12 @@ export default class session extends Component {
                   )}
                   <h5 className="p-col-12 text-center display-6">
                     Presenter:{" "}
-                    <a
+                    <Link
                       className="text-center"
-                      href={`/profile/${this.state.session.creator._id}`}
-                      target="_top"
+                      to={`/profile/${this.state.session.creator._id}`}
                     >
                       {this.state.session.creator.fullname}
-                    </a>
+                    </Link>
                   </h5>
 
                   <Button
@@ -209,7 +229,7 @@ export default class session extends Component {
                   )}
                   {this.props.loggedInUser &&
                   this.state.session.creator._id ===
-                    this.props.loggedInUser._id &&
+                  this.props.loggedInUser._id &&
                   this.state.session.status === "NOTSTARTED" ? (
                     <Button
                       label="Start Session"
@@ -232,7 +252,7 @@ export default class session extends Component {
                 )}
               </Panel>
             </div>
-            <div className="p-col-10 p-md-10">
+            <div className="p-col-10">
               <Panel header="Average rating">
                 {this.state.lineChartData ? (
                   <Chart type="line" data={this.state.lineChartData} />
@@ -243,7 +263,7 @@ export default class session extends Component {
             </div>
           </>
         ) : (
-          <ProgressSpinner />
+          <ProgressSpinner className="p-col-10" />
         )}
       </div>
     );

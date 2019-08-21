@@ -2,16 +2,28 @@ import React from "react";
 import { Dropdown } from "primereact/dropdown";
 import logo from "../assets/rateitlogo.png";
 import { Navbar, Nav } from "react-bootstrap";
+import { Link, withRouter } from "react-router-dom";
 
-export default class nav extends React.Component {
+class nav extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      profession: null
+    };
+  }
   professionItems = [
-    { label: "Musician", value: "Musician" },
-    { label: "Lecturer", value: "Lecturer" },
-    { label: "Yoga teacher", value: "Yoga teacher" },
-    { label: "Chef", value: "Chef" },
-    { label: "Standup comedian", value: "Standup comedian" },
-    { label: "Others", value: "Others" }
+    { label: "Musician", value: "musician" },
+    { label: "Lecturer", value: "lecturer" },
+    { label: "Yoga teacher", value: "yogateacher" },
+    { label: "Chef", value: "chef" },
+    { label: "Standup comedian", value: "standupcomedian" },
+    {label: "Developer", value: "Developer"}
   ];
+
+  onChange = e => {
+    this.setState({ profession: e.target.value });
+    this.props.history.push(`/explore/${e.target.value}`);
+  };
   render() {
     return (
       <Navbar
@@ -21,8 +33,10 @@ export default class nav extends React.Component {
         variant="dark"
         className="top"
       >
-        <Navbar.Brand href="#home">
-          <img className="logo" src={logo} alt="pic" />
+        <Navbar.Brand>
+          <Link to="/">
+            <img className="logo" src={logo} alt="pic" />
+          </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse
@@ -31,9 +45,21 @@ export default class nav extends React.Component {
         >
           <Nav>
             {this.props.user ? (
-              <Nav.Link href="#logout" className="text-danger">
-                Logout
-              </Nav.Link>
+              <>
+                <Nav.Link
+                  href="#"
+                  onClick={this.props.logout}
+                  className="text-danger"
+                >
+                  Logout
+                </Nav.Link>
+                <Link
+                  className="text-info nav-link"
+                  to={`/profile/${this.props.user._id}`}
+                >
+                  Home
+                </Link>
+              </>
             ) : (
               ""
             )}
@@ -41,7 +67,9 @@ export default class nav extends React.Component {
             <Dropdown
               required
               name="profession"
+              value={this.state.profession}
               options={this.professionItems}
+              onChange={this.onChange}
               placeholder="Explore professionals"
             />
           </Nav>
@@ -50,3 +78,5 @@ export default class nav extends React.Component {
     );
   }
 }
+
+export default withRouter(nav);

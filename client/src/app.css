@@ -31,9 +31,9 @@
   align-self: center;
 }
 
-.p-card {
+.presenter-card.p-card {
   border-radius: 8px;
-  max-width: 400px;
+  max-width: 300px;
 }
 
 .p-card-body {
@@ -72,6 +72,9 @@
     align-self: stretch;
     margin-top: 8px;
   }
+  .presenter-card.p-card {
+    max-width: 100%;
+  }
 }
 
 #sticky-footer {
@@ -93,8 +96,7 @@
 }
 
 .pages {
-  padding-top: 64px;
-  padding-bottom: 64px;
+  padding: 64px 32px;
 }
 
 .presenter .p-inputtext {
@@ -103,5 +105,5 @@
 
 .presenter-card .p-card-header img {
   border-radius: 50%;
+  width: 250px;
 }
-

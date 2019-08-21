@@ -10,11 +10,12 @@ import { Redirect } from "react-router-dom";
 
 class Signup extends React.Component {
   professionItems = [
-    { label: "Musician", value: "Musician" },
-    { label: "Lecturer", value: "Lecturer" },
-    { label: "Yoga teacher", value: "Yoga teacher" },
-    { label: "Chef", value: "Chef" },
-    { label: "Standup comedian", value: "Standup comedian" }
+    { label: "Musician", value: "musician" },
+    { label: "Lecturer", value: "lecturer" },
+    { label: "Yoga teacher", value: "yogateacher" },
+    { label: "Chef", value: "chef" },
+    { label: "Standup comedian", value: "standupcomedian" },
+    {label: "Developer", value: "Developer"}
   ];
   constructor(props) {
     super(props);

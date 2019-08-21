@@ -106,12 +106,12 @@ export default class rating extends Component {
 
   render() {
     return (
-      <div className="p-grid p-justify-center authpage pages">
+      <div className="p-grid p-dir-col p-justify-center p-align-center pages">
         {this.state.creator ? (
           <>
-            <div className="p-col-10 p-md-5">
+            <div className="p-col-10">
               <Messages className="p-col-12" ref={el => (this.messages = el)} />
-              <Panel header={`Rate ${this.state.session.name} here`}>
+              <Panel header={`Session Name: ${this.state.session.name}`}>
                 <div className="p-grid p-justify-around">
                   <RatingIcon
                     rating={1}
@@ -141,9 +141,8 @@ export default class rating extends Component {
                 </div>
               </Panel>
             </div>
-            <div className="p-col-10 p-md-5">
-              <Presenter user={this.state.creator} />
-            </div>
+
+            <Presenter className="p-col-10" user={this.state.creator} />
           </>
         ) : (
           <ProgressSpinner />

@@ -1,5 +1,6 @@
 import React from "react";
 import { Card } from "primereact/card";
+import { Link } from "react-router-dom";
 import StarRatings from "react-star-ratings";
 
 export default function presenter(props) {
@@ -10,17 +11,11 @@ export default function presenter(props) {
   return (
     <Card
       header={headerP}
-      className="presenter-card p-grid p-dir-column p-justify-around p-align-center"
+      className="presenter-card mt-2 p-grid p-dir-column p-justify-around p-align-center"
     >
       <h5 className="text-center">{props.user.fullname}</h5>
       <h6 className="text-center">
-        <a
-          className="text-center"
-          href={`/profile/${props.user._id}`}
-          target="_top"
-        >
-          View Profile
-        </a>
+        <Link to={`/profile/${props.user._id}`}>View Profile</Link>
       </h6>
       <StarRatings
         rating={props.user.rating}

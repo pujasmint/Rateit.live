@@ -83,5 +83,9 @@ const ratingRoutes = require("./routes/rating-routes");
 app.use("/rating", ratingRoutes);
 const sessionRatingRoutes = require("./routes/session-rating-routes");
 app.use("/session-rating", sessionRatingRoutes);
+const userRoutes = require("./routes/user-routes");
+app.use("/user", userRoutes);
+const exploreRoutes = require("./routes/explore-routes");
+app.use("/explore", exploreRoutes);
 
 module.exports = app;
