@@ -22,15 +22,15 @@ export default class rating extends Component {
   getEmojiOnRating(ratings) {
     switch (ratings) {
       case 1:
-        return "🤒";
+        return "🤒 Not Satisfied";
       case 2:
-        return "😣";
+        return "😣 Slightly Satisfied";
       case 3:
-        return "😕";
+        return "😕 Neutral";
       case 4:
-        return "😎";
+        return "😎 Satisfied";
       case 5:
-        return "🤑";
+        return "🤑Fully Satisfied";
       default:
         return "😎";
     }

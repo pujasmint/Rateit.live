@@ -6,6 +6,7 @@ import EnterDetails from "../components/enterdetails";
 import { Card } from "primereact/card";
 import { withRouter } from "react-router-dom";
 import { Dialog } from "primereact/dialog";
+import Footer from "../components/footer";
 
 class home extends React.Component {
   constructor(props) {
@@ -62,6 +63,7 @@ class home extends React.Component {
         <video autoPlay muted loop id="myVideo">
           <source src={homeVideo} type="video/mp4" />
         </video>
+        <Footer />
       </>
     );
   }

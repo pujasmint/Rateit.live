@@ -34,15 +34,15 @@ export default class session extends Component {
   getEmojiOnRating(ratings) {
     switch (parseInt(ratings)) {
       case 1:
-        return "🤒";
+        return "🤒 Not Satisfied";
       case 2:
-        return "😣";
+        return "😣 Slightly Satisfied";
       case 3:
-        return "😕";
+        return "😕 Nuteral";
       case 4:
-        return "😎";
+        return "😎 Satisfied";
       case 5:
-        return "🤑";
+        return "🤑 Fully Satisfied";
       default:
         return "😎";
     }
@@ -105,7 +105,7 @@ export default class session extends Component {
           label: "Rating",
           data: Object.values(lineData),
           fill: false,
-          backgroundColor: "#42A5F5",
+          backgroundColor: "#66BB6A",
           borderColor: "#42A5F5"
         }
       ]
@@ -133,7 +133,7 @@ export default class session extends Component {
             clearInterval(intervalHandler);
           }
         });
-    }, 5000);
+    }, 50000);
   };
 
   componentDidMount() {
@@ -154,14 +154,14 @@ export default class session extends Component {
         if (res.session.status === "PROGRESS") {
           this.pollSessionData();
         }
-      });
+      });              
   }
 
   onClickInviteDetails = () => {
     this.setState({ visible: true });
   };
 
-  onHideInviteDetails = () => {
+  onHideInviteDetails = () => {  
     this.setState({ visible: false });
   };
 
@@ -175,8 +175,7 @@ export default class session extends Component {
               header="Joining Details"
               visible={this.state.visible}
               onHide={this.onHideInviteDetails}
-              maximizable
-            >
+              maximizable>
               <Invitedetails invitekey={this.state.session.invitekey} />
             </Dialog>
 
@@ -216,7 +215,7 @@ export default class session extends Component {
                   />
                   {this.props.loggedInUser &&
                   this.state.session.creator._id ===
-                    this.props.loggedInUser._id &&
+                  this.props.loggedInUser._id &&
                   this.state.session.status === "PROGRESS" ? (
                     <Button
                       label="Finish Session"

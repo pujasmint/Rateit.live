@@ -17,7 +17,7 @@ class nav extends React.Component {
     { label: "Yoga teacher", value: "yogateacher" },
     { label: "Chef", value: "chef" },
     { label: "Standup comedian", value: "standupcomedian" },
-    {label: "Developer", value: "Developer"}
+    { label: "Developer", value: "Developer"}
   ];
 
   onChange = e => {
@@ -37,9 +37,9 @@ class nav extends React.Component {
           <Link to="/">
             <img className="logo" src={logo} alt="pic" />
           </Link>
-        </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-        <Navbar.Collapse
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse
           id="responsive-navbar-nav"
           className="justify-content-end"
         >
@@ -49,14 +49,12 @@ class nav extends React.Component {
                 <Nav.Link
                   href="#"
                   onClick={this.props.logout}
-                  className="text-danger"
-                >
+                  className="text-danger">
                   Logout
                 </Nav.Link>
                 <Link
                   className="text-info nav-link"
-                  to={`/profile/${this.props.user._id}`}
-                >
+                  to={`/profile/${this.props.user._id}`}>
                   Home
                 </Link>
               </>

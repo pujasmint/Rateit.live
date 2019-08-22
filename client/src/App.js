@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import Login from "./pages/auth/login";
 import Signup from "./pages/auth/signup";
 import Nav from "./components/nav";
-import Footer from "./components/footer";
+//import Footer from "./components/footer";
 import AuthService from "./api/authservice";
 import Home from "./pages/home";
 import Profile from "./pages/profile";
@@ -89,10 +89,11 @@ class App extends React.Component {
             render={props => <Home {...props} loggedInUser={this.state.user} />}
           />
         </Switch>
-        <Footer />
       </>
     );
   }
 }
+
+
 
 export default App;
