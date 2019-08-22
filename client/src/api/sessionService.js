@@ -5,7 +5,7 @@ import axios from "axios";
 export default class SessionService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:3000/session",
+      baseURL: `${process.env.REACT_APP_API_URL}/session`,
       withCredentials: true
     });
     this.service = service;

@@ -5,7 +5,7 @@ import axios from "axios";
 export default class SessionRatingService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:3000/session-rating",
+      baseURL: `${process.env.REACT_APP_API_URL}/session-rating`,
       withCredentials: true
     });
     this.service = service;

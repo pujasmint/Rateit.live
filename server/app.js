@@ -19,7 +19,7 @@ require("./configs/passport");
 // IF YOU STILL DIDN'T, GO TO 'configs/passport.js' AND UN-COMMENT OUT THE WHOLE FILE
 
 mongoose
-  .connect("mongodb://localhost/project-management-server", {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true
   })
   .then(x => {
@@ -74,18 +74,23 @@ app.use(
 
 // ROUTES MIDDLEWARE STARTS HERE:
 const index = require("./routes/index");
-app.use("/", index);
+app.use("/api", index);
 const authRoutes = require("./routes/auth-routes");
-app.use("/auth", authRoutes);
+app.use("/api/auth", authRoutes);
 const sessionRoutes = require("./routes/session-routes");
-app.use("/session", sessionRoutes);
+app.use("/api/session", sessionRoutes);
 const ratingRoutes = require("./routes/rating-routes");
-app.use("/rating", ratingRoutes);
+app.use("/api/rating", ratingRoutes);
 const sessionRatingRoutes = require("./routes/session-rating-routes");
-app.use("/session-rating", sessionRatingRoutes);
+app.use("/api/session-rating", sessionRatingRoutes);
 const userRoutes = require("./routes/user-routes");
-app.use("/user", userRoutes);
+app.use("/api/user", userRoutes);
 const exploreRoutes = require("./routes/explore-routes");
-app.use("/explore", exploreRoutes);
+app.use("/api/explore", exploreRoutes);
+
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
 
 module.exports = app;

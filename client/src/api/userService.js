@@ -5,7 +5,7 @@ import axios from "axios";
 export default class RatingService {
   constructor() {
     let service = axios.create({
-      baseURL: "http://localhost:3000/user",
+      baseURL: `${process.env.REACT_APP_API_URL}/user`,
       withCredentials: true
     });
     this.service = service;
